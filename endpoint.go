@@ -33,25 +33,9 @@ func NewEndpoint(url string, weight, maxIddle int, generator func() (*grpc.Clien
 	return e, nil
 }
 
-func (e *Endpoint) getURL() string {
-	return e.url
-}
-
-func (e *Endpoint) getWeight() int {
-	return e.weight
-}
-
-func (e *Endpoint) getMaxIddle() int {
-	return e.maxIddle
-}
-
 // GetClientConn get client connection of this endpoint
 func (e *Endpoint) GetClientConn() *grpc.ClientConn {
 	return e.ClientConn
-}
-
-func (e *Endpoint) getLastUsed() time.Time {
-	return e.lastUsed
 }
 
 func (e *Endpoint) checkOrInitiateNewConnection() error {

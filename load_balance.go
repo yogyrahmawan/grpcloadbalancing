@@ -92,7 +92,7 @@ func (l *LoadBalance) getEndpoint() (*Endpoint, error) {
 			}
 		}
 
-		if l.endpoints[l.lastSelected].getWeight() >= l.cw {
+		if l.endpoints[l.lastSelected].weight >= l.cw {
 			return l.endpoints[l.lastSelected], nil
 		}
 		continue
@@ -105,8 +105,8 @@ func getMaxWeight(endpoints []*Endpoint) chan int {
 	go func() {
 		max := -1
 		for _, v := range endpoints {
-			if v.getWeight() > max {
-				max = v.getWeight()
+			if v.weight > max {
+				max = v.weight
 			}
 		}
 
@@ -123,9 +123,9 @@ func calculateEndpointsGCD(endpoints []*Endpoint) chan int {
 		divider := -1
 		for _, v := range endpoints {
 			if divider == -1 {
-				divider = v.getWeight()
+				divider = v.weight
 			} else {
-				divider = gcd(divider, v.getWeight())
+				divider = gcd(divider, v.weight)
 			}
 		}
 		gcdResult <- divider

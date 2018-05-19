@@ -93,27 +93,27 @@ func TestAllLoadBalance(t *testing.T) {
 			// first get
 			e, err := res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:9999")
+			So(e.url, ShouldEqual, "localhost:9999")
 
 			// second get
 			e, err = res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:9999")
+			So(e.url, ShouldEqual, "localhost:9999")
 
 			// third get
 			e, err = res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:8080")
+			So(e.url, ShouldEqual, "localhost:8080")
 
 			// fourth get
 			e, err = res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:8888")
+			So(e.url, ShouldEqual, "localhost:8888")
 
 			// fifth get
 			e, err = res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:9999")
+			So(e.url, ShouldEqual, "localhost:9999")
 
 			// validate element parameter
 			So(res.gcd, ShouldEqual, 1)
@@ -161,7 +161,7 @@ func TestAllLoadBalance(t *testing.T) {
 				fmt.Println("Waiting ")
 				select {
 				case e := <-chanEndpoints:
-					So(e.endpoint.getURL(), ShouldEqual, tmpResults[e.iteration])
+					So(e.endpoint.url, ShouldEqual, tmpResults[e.iteration])
 					succeed++
 				case <-chanError:
 					fail++
@@ -189,7 +189,7 @@ func TestAllLoadBalance(t *testing.T) {
 		Convey("test get then add", func() {
 			e, err := res.Get()
 			So(err, ShouldBeNil)
-			So(e.getURL(), ShouldEqual, "localhost:9999")
+			So(e.url, ShouldEqual, "localhost:9999")
 
 			// validate parameter
 			So(res.gcd, ShouldEqual, 1)
